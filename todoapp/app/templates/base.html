@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>{% block title %}{% endblock %} - Todo</title>
+    <script>
+        function hideMsg(targ)
+    </script>
+</head>
+<body>
+    <div class="wrap">
+        <aside class="sidebar">
+            <nav class="globalnav">
+            	{% if current_user.is_authenticated %}
+                    <p class="welcome">Hello, {{ current_user.username }}</p>
+                {% endif %}
+          
+                <p class="nav_caption">⬛︎ N A V I</p>
+                <ul>
+                    <li><a href="{{ url_for('index.index') }}">Home</a></li>
+                    {% if current_user.is_authenticated %}
+                        <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
+                    {% else %}
+                        <li><a href="{{ url_for('auth.register') }}">Register</a></li>
+                        <li><a href="{{ url_for('auth.login') }}">Log In</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </aside>
+        <main class="content">
+            <article class="items">
+                <h2 class="caption">{% block header %}{% endblock %}</h2>
+                {% with messages=get_flashed_messages(with_categories=true) %}
+                	{% if messages %}
+                		{% for category,message in messages %}
+	                    <div id="flashmsg"class="{{category}}">
+                            <span id="btn">&times;</span>{{ message }}</div>
+	                    {% endfor %}
+	            	{% endif %}
+	            {% endwith %}
+                <section class="item">{% block content %}{% endblock %}</section>
+            </article>
+        </main>
+    </div>
+    <script>
+        document.getElementById('btn').addEventListener('click', () => {
+            const flashMsg = document.getElementById('flashmsg');
+            if (flashMsg) {
+                flashMsg.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
