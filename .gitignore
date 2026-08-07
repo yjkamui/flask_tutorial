@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+*.py[cod]
+
+# Created automatically on first run by db.create_all()
+newsapp/instance/database.db

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}フィード管理{% endblock %}
+{% block header %}フィード管理{% endblock %}
+
+{% block content %}
+    <form method="post" class="feed-form">
+        {{ form.hidden_tag() }}
+        <div class="field">
+            {{ form.url.label }}
+            {{ form.url(placeholder='https://example.com/rss.xml') }}
+            {% for error in form.url.errors %}
+                <span class="field-error">{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div class="field">
+            {{ form.title.label }}
+            {{ form.title(placeholder='未入力ならフィードのタイトルを使います') }}
+            {% for error in form.title.errors %}
+                <span class="field-error">{{ error }}</span>
+            {% endfor %}
+        </div>
+        {{ form.submit(class='btn primary') }}
+    </form>
+
+    {% if feeds %}
+        <table class="feed-table">
+            <thead>
+                <tr>
+                    <th>フィード</th>
+                    <th class="num">記事数</th>
+                    <th>最終取得</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for feed in feeds %}
+                    <tr>
+                        <td>
+                            <a class="feed-name" href="{{ url_for('article.index', feed_id=feed.id) }}">{{ feed.display_name }}</a>
+                            <span class="feed-url">{{ feed.url }}</span>
+                        </td>
+                        <td class="num">{{ counts.get(feed.id, 0) }}</td>
+                        <td>{{ feed.last_fetched_at.strftime('%Y/%m/%d %H:%M') if feed.last_fetched_at else '未取得' }}</td>
+                        <td class="actions">
+                            <form method="post" action="{{ url_for('feed.refresh_feed', id=feed.id) }}">
+                                <button type="submit" class="btn">更新</button>
+                            </form>
+                            <form method="post" action="{{ url_for('feed.delete_feed', id=feed.id) }}"
+                                  onsubmit="return confirm('{{ feed.display_name }} と、そのフィードの記事をすべて削除します。よろしいですか？');">
+                                <button type="submit" class="btn danger">削除</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="empty">フィードがまだ登録されていません。上のフォームから追加してください。</p>
+    {% endif %}
+{% endblock %}

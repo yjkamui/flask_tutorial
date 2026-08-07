@@ -1,0 +1,385 @@
+:root {
+    --bg: #f5f6f8;
+    --surface: #ffffff;
+    --border: #e2e5ea;
+    --text: #1c1f24;
+    --muted: #6b7280;
+    --accent: #2563eb;
+    --danger: #dc2626;
+    --success: #15803d;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Hiragino Sans", "Noto Sans JP", "Yu Gothic", system-ui, sans-serif;
+    line-height: 1.7;
+}
+
+a {
+    color: inherit;
+}
+
+/* --- header --- */
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding: 0.9rem 1.5rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+}
+
+.brand {
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.topnav {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.topnav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.topnav a:hover {
+    color: var(--accent);
+}
+
+/* --- layout --- */
+.wrap {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 1.75rem 1.25rem 4rem;
+}
+
+.page-title {
+    font-size: 1.4rem;
+    margin: 0 0 1.25rem;
+}
+
+.empty {
+    background: var(--surface);
+    border: 1px dashed var(--border);
+    border-radius: 10px;
+    padding: 2rem;
+    text-align: center;
+    color: var(--muted);
+}
+
+/* --- buttons --- */
+.btn {
+    padding: 0.4rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--surface);
+    color: var(--text);
+    font: inherit;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.btn.primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+}
+
+.btn.primary:hover {
+    opacity: 0.88;
+    color: #fff;
+}
+
+.btn.danger:hover {
+    border-color: var(--danger);
+    color: var(--danger);
+}
+
+/* --- flash messages --- */
+.flashes {
+    display: grid;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.flash {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.7rem 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    font-size: 0.9rem;
+}
+
+.flash.success {
+    border-color: #bbf7d0;
+    background: #f0fdf4;
+    color: var(--success);
+}
+
+.flash.error {
+    border-color: #fecaca;
+    background: #fef2f2;
+    color: var(--danger);
+}
+
+.flash-close {
+    border: 0;
+    background: none;
+    color: inherit;
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+/* --- feed filter chips --- */
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.chip {
+    padding: 0.28rem 0.8rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.82rem;
+}
+
+.chip:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.chip.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+}
+
+/* --- article list --- */
+.articles {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.85rem;
+}
+
+.article {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.1rem 1.25rem;
+}
+
+.article-meta {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-bottom: 0.35rem;
+}
+
+.article-meta .source {
+    text-decoration: none;
+    font-weight: 600;
+    color: var(--accent);
+}
+
+.article-title {
+    margin: 0 0 0.4rem;
+    font-size: 1.05rem;
+    line-height: 1.5;
+}
+
+.article-title a {
+    text-decoration: none;
+}
+
+.article-title a:hover {
+    text-decoration: underline;
+}
+
+.article-summary {
+    margin: 0;
+    font-size: 0.88rem;
+    color: var(--muted);
+}
+
+/* --- pagination --- */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.25rem;
+    margin-top: 1.75rem;
+    font-size: 0.88rem;
+}
+
+.pagination a {
+    text-decoration: none;
+    color: var(--accent);
+}
+
+.page-count {
+    color: var(--muted);
+}
+
+/* --- feed management --- */
+.feed-form {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem;
+    margin-bottom: 1.75rem;
+    display: grid;
+    gap: 0.9rem;
+    justify-items: start;
+}
+
+.field {
+    display: grid;
+    gap: 0.3rem;
+    width: 100%;
+}
+
+.field label {
+    font-size: 0.82rem;
+    color: var(--muted);
+}
+
+.field input {
+    width: 100%;
+    padding: 0.5rem 0.7rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font: inherit;
+    font-size: 0.9rem;
+}
+
+.field input:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: -1px;
+}
+
+.field-error {
+    font-size: 0.78rem;
+    color: var(--danger);
+}
+
+.feed-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    font-size: 0.88rem;
+}
+
+.feed-table th,
+.feed-table td {
+    padding: 0.7rem 0.9rem;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+    vertical-align: middle;
+}
+
+.feed-table thead th {
+    background: #fafbfc;
+    color: var(--muted);
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+.feed-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.feed-table .num {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.feed-name {
+    display: block;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.feed-url {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--muted);
+    word-break: break-all;
+}
+
+.actions {
+    display: flex;
+    gap: 0.4rem;
+    justify-content: flex-end;
+}
+
+@media (max-width: 620px) {
+    .topbar {
+        justify-content: center;
+    }
+
+    .feed-table thead {
+        display: none;
+    }
+
+    .feed-table,
+    .feed-table tbody,
+    .feed-table tr,
+    .feed-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .feed-table tr {
+        border-bottom: 1px solid var(--border);
+        padding: 0.5rem 0;
+    }
+
+    .feed-table td {
+        border: 0;
+        padding: 0.25rem 0.9rem;
+    }
+
+    .feed-table .num {
+        text-align: left;
+    }
+
+    .actions {
+        justify-content: flex-start;
+        padding-top: 0.5rem;
+    }
+}

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}記事一覧{% endblock %}
+{% block header %}{{ selected.display_name if selected else '最新の記事' }}{% endblock %}
+
+{% block content %}
+    <div class="filters">
+        <a class="chip {{ '' if selected else 'active' }}" href="{{ url_for('article.index') }}">すべて</a>
+        {% for feed in feeds %}
+            <a class="chip {{ 'active' if selected and selected.id == feed.id else '' }}"
+               href="{{ url_for('article.index', feed_id=feed.id) }}">{{ feed.display_name }}</a>
+        {% endfor %}
+    </div>
+
+    {% if articles.items %}
+        <ul class="articles">
+            {% for article in articles.items %}
+                <li class="article">
+                    <div class="article-meta">
+                        <a class="source" href="{{ url_for('article.index', feed_id=article.feed_id) }}">{{ article.feed.display_name }}</a>
+                        {% if article.shown_at %}
+                            <time>{{ article.shown_at.strftime('%Y/%m/%d %H:%M') }}</time>
+                        {% endif %}
+                    </div>
+                    <h2 class="article-title">
+                        <a href="{{ article.url }}" target="_blank" rel="noopener noreferrer">{{ article.title }}</a>
+                    </h2>
+                    {% if article.summary %}
+                        <p class="article-summary">{{ article.summary }}</p>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+
+        {% if articles.pages > 1 %}
+            <nav class="pagination">
+                {% if articles.has_prev %}
+                    <a href="{{ url_for('article.index', page=articles.prev_num, feed_id=selected.id if selected else None) }}">&laquo; 前へ</a>
+                {% endif %}
+                <span class="page-count">{{ articles.page }} / {{ articles.pages }}</span>
+                {% if articles.has_next %}
+                    <a href="{{ url_for('article.index', page=articles.next_num, feed_id=selected.id if selected else None) }}">次へ &raquo;</a>
+                {% endif %}
+            </nav>
+        {% endif %}
+    {% else %}
+        <p class="empty">
+            まだ記事がありません。ヘッダーの「更新」を押すと、登録済みのフィードから記事を取得します。
+        </p>
+    {% endif %}
+{% endblock %}

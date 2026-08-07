@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>{% block title %}{% endblock %} - News Curation</title>
+</head>
+<body>
+    <header class="topbar">
+        <a class="brand" href="{{ url_for('article.index') }}">📰 News Curation</a>
+        <nav class="topnav">
+            <a href="{{ url_for('article.index') }}">記事一覧</a>
+            <a href="{{ url_for('feed.list_feeds') }}">フィード管理</a>
+            <form method="post" action="{{ url_for('article.refresh') }}">
+                <button type="submit" class="btn primary">更新</button>
+            </form>
+        </nav>
+    </header>
+
+    <main class="wrap">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flashes">
+                    {% for category, message in messages %}
+                        <div class="flash {{ category }}">
+                            <span>{{ message }}</span>
+                            <button type="button" class="flash-close" aria-label="閉じる">&times;</button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <h1 class="page-title">{% block header %}{% endblock %}</h1>
+        {% block content %}{% endblock %}
+    </main>
+
+    <script>
+        document.querySelectorAll('.flash-close').forEach((btn) => {
+            btn.addEventListener('click', () => btn.closest('.flash').remove());
+        });
+    </script>
+</body>
+</html>
